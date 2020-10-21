@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<style> 
+        .tab { 
+            display: inline-block; 
+            margin-right: 20px; 
+        } 
+    </style> 
+</head>
+<body>
+
+ 
+ <div style=" position: absolute; top: 64px; right: 965px; border-style: double;  border-color: coral;">
+        TotalPrice = {{ totalprice }} <br>
+        <!--  {% for data in var1 %}
+         
+            UserName : {{ data.username }}<br>
+            First_name : {{ data.first_name }}<br>
+            Last_Name : {{ data.last_name }}<br>
+            Work : {{ data.UserField }}<br>
+            Address : {{ data.address }}<br>
+            Contact : {{ data.contact_no }}<br>
+            City : {{ data.city }}<br>
+            State : {{ data.state }}<br>
+         
+         {% endfor %}
+   -->
+       
+ </div><div>
+ {% for i,j in Dicttt %}
+    My_Order: {{i}} = {{j}}
+    <!-- <a href="/checkout/"><button class="wNrY50">ConfirmOrder</button></a><br>  -->
+    {% endfor %}
+   </div>
+<div style="position: absolute; top: 10px; left: 745px;" class="w3-display-topright">
+   <h6 style="color:red">Order Page</h6>
+
+   
+        
+        <form method="POST" action="{% url 'checkout' %}">
+
+            {% csrf_token %}
+           BillName <input type="text" name="BillName"><br><br>
+            Delivery Address<input type="text" name="delivery_address"><br><br>
+            Email = <input type= 'email' name="Email" ><br><br>
+            CartPriice = <input type="text" value ="{{ totalprice }}" name="CartPrice" > <br><br>
+            Payment Options<select name="Payment_Options" >
+              <option value="Paytm">Paytm</option>
+              <option value="Phonepay">Phonepay</option>
+              <option value="COD">COD</option>
+              <option value="credit_cart">credit_cart</option>
+            </select><br><br>
+           
+           Total:-<input type='Total' value="{{ Total }}" name="Total" ></input><br><br>
+          Discount:-<input type='Discount' value="{{ discountsession }}" name="Discount" ></input><br>   <br>      
+           Taxes:-<input type='text' value="{{Taxes}}" name="Taxes" name="Taxes"></input><br>     <br>
+            <input type="submit" value="Place Order"> 
+        </form>
+  
+
+</div>
+
+
+</body>
+</html>

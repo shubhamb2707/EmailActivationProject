@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<style> 
+        .tab { 
+            display: inline-block; 
+            margin-right: 20px; 
+        } 
+    </style> 
+</head>
+<body>
+
+ 
+ <div style=" position: absolute; top: 64px; right: 965px; border-style: double;  border-color: coral;">
+   <!-- <h5 style="color:red">User Profile</h5> -->
+ 	<!-- <table style="padding:10px" border = "1" bordercolor = "red" bgcolor = "yellow">
+         <tr>
+            <th>UserName</th>
+            <th>First_Name</th>
+            <th>Last_Name</th>
+            <th>Student/Techer</th>
+            <th>Address</th>
+            <th>Contact_No</th>
+            <th>City</th>
+            <th>State</th>
+         </tr> -->
+
+        
+         {% for data in var1 %}
+         
+            UserName : {{ data.username }}<br>
+            First_name : {{ data.first_name }}<br>
+            Last_Name : {{ data.last_name }}<br>
+            Work : {{ data.UserField }}<br>
+            Address : {{ data.address }}<br>
+            Contact : {{ data.contact_no }}<br>
+            City : {{ data.city }}<br>
+            State : {{ data.state }}<br>
+         
+         {% endfor %}
+  
+      </table></center>
+ </div>
+<div style="position: absolute; top: 10px; left: 745px;" class="w3-display-topright">
+   <h6 style="color:red"> Product List </h6>
+   <center>
+   
+         
+         {% for data in product %}
+         <tr>
+            <hr>
+           <img src="{{ media_url }}{{ data.image }}" width="150" height="150"><br>
+            <p class="tab">{{ data.name }}</p>
+            {{ data.price }}$<br>
+
+          
+        <form method="POST" action="{% url 'index' %}">
+
+            {% csrf_token %}
+            <!-- <input type="text" name="productname" value="{{ data.name }}"> -->
+            <input type="hidden" name="User" value="{{ User_Name }}">
+            <input type="hidden" name="product" value="{{data.id}}">
+            <input type="submit" value="AddToCart"> 
+
+        </form>
+             
+        <form method="POST" action="{% url 'wishlist' %}">
+           
+            {% csrf_token %}
+            
+        
+             {% if data.id in datalist %}
+            
+            <input type="hidden" name="product" value="{{data.id}}"> 
+            <button class = "ui button positive" style="background: blue; color: white;" type="submit"> Unwish </button>
+        
+            {% else %}
+            <input type="hidden" name="product" value="{{data.id}}">
+            <button style="background: red; color: white;" type="submit"> wish </button>
+            {% endif %}  
+            
+        </form>
+        {% endfor %}
+         </tr>
+      
+    
+   </center>
+      
+  </div>
+
+</body>
+</html>

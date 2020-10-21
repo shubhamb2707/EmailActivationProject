@@ -1,0 +1,115 @@
+<html>
+<head></head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% block head %}
+{% endblock %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+{% block style %}
+{% endblock %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<script>
+    var allowsubmit = false;
+    $(function(){
+      //on keypress 
+      $('#Confirm_Password_id').keyup(function(e){
+      debugger
+        //get values 
+        var pass = $('#password_id').val();
+        var confpass = $('#Confirm_Password_id').val();
+        
+        //check the strings
+        if(pass == confpass){
+          //if both are same remove the error and allow to submit
+          $('.error').text('');
+          allowsubmit = true;
+        }else{
+          //if not matching show error and not allow to submit
+          $('.error').text('Password not matching');
+          allowsubmit = false;
+        }
+      });
+      
+      //jquery form submit
+      $('#UserForm').submit(function(){
+      
+      
+        var pass = $('#password_id').val();
+        var confpass = $('#Confirm_Password_id').val();
+ 
+        //just to make sure once again during submit
+        //if both are true then only allow submit
+        if(pass == confpass){
+          allowsubmit = true;
+        }
+        if(allowsubmit){
+          return true;
+        }else{
+          return false;
+        }
+      });
+    });
+  </script>
+      
+<div class="container">
+   <div >
+      <h1 class="text-center display-9">User Form</h1>
+    </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-sm-6 ">
+        <form id = "UserForm" class="UserFormClass" method= "POST">
+          {% csrf_token %}
+          
+          {{ form.as_p }}   
+          Password:<br>
+          <input type="password" id="password_id" class="form-control" name="password"/><br>
+          Confirm_Password:<br>
+          <input type="password" id="Confirm_Password_id" class="form-control" name="Confirm_Password"/><br>
+
+          <div class="form-group">
+              <span class="error" style="color:red"></span><br />
+          </div>
+
+          <input type="submit" id="buttonForm" name="user-submit" class="btn btn-primary" />
+
+        </form>
+      </div>
+   </div>
+</div>
+
+
+</body>
+</html>
+
+
+
+
+<!-- {% block script %} -->
+<!-- <script type="text/javascript">
+$(document).ready(function(){
+   $(".UserFormClass").submit(function($this){
+      // serialize the form data  
+         debugger
+        var serializedData = $(this).serialize();
+        $.ajax({
+          type : 'POST',
+          url :  "{% url 'register' %}",
+          data : serializedData,
+          success : function(response){
+              window.location.reload() 
+          },
+          error : function(response){
+            console.log(response)
+          }
+        });
+   });
+});
+</script>
+{% endblock %} -->

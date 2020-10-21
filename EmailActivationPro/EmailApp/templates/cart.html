@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<style> 
+        .tab { 
+            display: inline-block; 
+            margin-right: 6px; 
+        } 
+    </style> 
+</head>
+<body>
+ </div>
+<div style="position: absolute; top: 10px; left: 200px;" class="w3-display-topright">
+   <h6 style="color:red">User :- {{ User_Name }}</h6>
+   Your Cart
+   <center>
+       
+         
+         
+         <tr>
+            <hr>
+          <!--  <img src="{{ media_url }}{{ data.image }}" width="150" height="150"><br> -->
+        <!--  
+           <img src="{{ media_url }}{{ x.image }}" width="150" height="150"><br>
+            <p class="tab">{{ x.name }}</p>
+            <p class="tab">{{ x.price }}$</p><br>
+            Quantity :{{ m }}
+            <br> -->
+         {% for key, value in New %}
+         <img src="{{ media_url }}{{ key.image }}" width="150" height="150"><br>
+         {{key.name}}<br>
+         {{ key.price }}$<br>
+         Quantity :<a href="/removecart/?query_name={{ key.id|urlencode }}"> <button class="wNrY50">-</button> </a> 
+          {{ value }}
+          
+          <a href="/increase_cart_item/?query_name={{ key.id|urlencode }}"><button class="wNrY50">+</button></a><br><br>
+         {% endfor %}
+          <table>
+  
+         
+        <!-- SubTotal  : $ {{ totalprice }}<br> -->
+       <!--  Taxes : $ 10 <br>
+        Discount :   <br>
+        Promo Code ?<br>
+        -->
+       <!--   <a href="/checkout/?totalprice={{ totalprice|urlencode }}"><button class="wNrY50">CheckOut</button></a><br><br> -->
+       
+    <!--       {% for j in valueList %}
+              {{ j }}
+
+          {% endfor %} -->
+              
+       <!--  <form method="POST" action="{% url 'index' %}">
+
+            {% csrf_token %}
+
+            <input type="text" name="product" value="{{data.id}}">
+            <input type="submit" value="AddToCart"> 
+        </form>
+             -->
+         </tr>
+         
+  
+   </center>
+</div>
+
+ <!--card-->
+                                   
+        <div style="position: absolute; margin: 15px; top: 10px; padding: 20px; left: 600px; border-style: double;  border-color: coral;" class="w3-display-topright" >                                
+                                        <div class="order-line">
+                                            <span >Subtotal : $</span>
+                                            <span>{{ totalprice }}</span>
+                                        </div>
+                                        
+                                        
+                                        <div class="order-line">
+                                            <span>Taxes : $</span>
+                                            <span>10</span>
+                                        </div>
+                                        <div class="order-line">
+                                            <span>Discount</span>
+                                            <span style="color: red;">: -$ {{ discountsession  }}</span>
+
+                                             <form method="POST" action={% url 'cart' %}  >
+                                                {% csrf_token %}
+    <input type="submit" class="btn" value="RemoveCode" name="remove_btn">
+</form><br><br>
+                                        </div>
+                                        <div class="order-line">
+                                            <span>Promo code?</span>
+                                            
+                                            <br>
+                                            
+                                        </div>
+                                        
+                                        <form method="POST" action={% url 'cart' %}  >
+                                            {% csrf_token %}
+                                                        
+                                
+                                                <div class="control has-validation ">
+                                                    <input type="text" class="input" name="promo_code" placeholder="write your code here" style="width: 200px;" />
+                                                    <!-- <input type="hidden" class="input" name="discount_value" value="{{ discount|floatformat:2 }}"> -->
+                                                 
+                                                    <input type='submit' value="Check" name="promo"></input>
+                                                </div>
+                                                    {{mssg}}<br>
+                                            </form>
+
+                                           
+                                       
+                                            <span class="is-total">Total</span>
+                                            <span class="is-total">{{ Total }}</span class="is-total">
+                                        <br>
+                                       <!-- <a href="/checkout/?totalprice={{ Total|urlencode }}"><button class="wNrY50">CheckOut</button></a><br><br> -->
+                            <div>
+                            <form method="GET" action="{% url 'checkout' %}">
+                                {% csrf_token %}
+                            <input type='hidden' value="{{ Total }}" name="Total"></input>
+                            <input type='hidden' value="{{ discountsession }}" name="discountsession"></input>         
+                            <input type='hidden' value="{{ totalprice }}" name="totalprice"></input>
+                            <input type='hidden' value="10" name="Taxes"></input><br>
+                            <input type='submit' value="CheckOut"></input>
+                            </form></div>
+                                    </div>
+                              </div>      <!--card-->
+</body>
+</html>

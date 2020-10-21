@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Django + Stripe Checkout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script src="https://js.stripe.com/v3/"></script>
+      <!-- new -->
+
+
+   
+  </head>
+  <body>
+    <section class="section">
+    <div class="container">
+      <button class="button is-primary" id="submitBtn">Purchase</button>
+    </div>
+  </section>
+
+     <script>
+     
+    console.log("Sanity check!");
+    fetch("/config/")
+    .then((result) => { return result.json(); })
+    .then((data) => {
+    
+      const stripe = Stripe(data.publicKey);
+    });
+
+
+  </script>
+
+  <script>
+
+    $("#submitBtn").on('click',function(){
+      alert('sdgdfgh');
+    // Get Checkout Session ID
+    fetch("/create-checkout-session/")
+    .then((result) => { return result.json(); })
+      .then((data) => {
+        console.log(data);
+        // Redirect to Stripe Checkout
+        const stripe = Stripe('pk_test_51HaIWcI62ZvbUaoLAoZWWwUUPm9oEImmC0skk8fr4WIRSmJhulHyvuTyjOjF7rIdOojlJKOUcprK4I56I62Z1cgw00MeRA98Sp');
+        return stripe.redirectToCheckout({sessionId: data.sessionId})
+      })
+      .then((res) => {
+        console.log(res);
+      });
+    });
+  </script>
+  
+  </body>
+</html>

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block head %}
+  <title>Login Form</title>
+{% endblock %}
+{% block style %}
+{% endblock %}
+{% block content %}
+<div class="container">
+   <div class="jumbotron">
+      <h1 class="text-center display-4">User Login Form</h1>
+      <p class="lead text-center"></p>
+    </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-sm-6 ">
+        <form id = "UserForm" class="UserFormClass" method= "POST">
+          {% csrf_token %}
+          
+          {{ lform.as_p }}   
+          <input type="submit" id="buttonForm" name="user-submit" class="btn btn-primary" />
+        </form>
+        <hr>
+        <a class="btn btn-primary" href="/password_reset/">Forget_Password</a>
+      </div>
+   </div>
+</div>
+{% endblock %}
+<!-- {% block script %}
+<script type="text/javascript">
+$(document).ready(function(){
+   $(".UserFormClass").submit(function($this){
+      // serialize the form data  
+         debugger
+        var serializedData = $(this).serialize();
+        $.ajax({
+          type : 'POST',
+          url :  "{% url 'login' %}",
+          data : serializedData,
+          success : function(response){
+          },
+          error : function(response){
+            alert(response);
+          }
+        });
+        
+   });
+});
+</script>
+{% endblock %}
+
+ -->
